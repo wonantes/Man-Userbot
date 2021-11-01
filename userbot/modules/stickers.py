@@ -8,13 +8,13 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 import asyncio
-import cloudscraper
 import io
 import math
 import random
 import urllib.request
 from os import remove
 
+import cloudscraper
 from PIL import Image
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
