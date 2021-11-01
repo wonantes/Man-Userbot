@@ -14,7 +14,7 @@ import random
 import urllib.request
 from os import remove
 
-import cloudscraper
+import requests
 from bs4 import BeautifulSoup as bs
 from PIL import Image
 from telethon import events
@@ -32,7 +32,7 @@ from userbot import CMD_HELP
 from userbot import S_PACK_NAME as custompack
 from userbot import bot
 from userbot.events import man_cmd
-from userbot.utils import edit_delete, edit_or_reply
+from userbot.utils import edit_or_reply
 
 KANGING_STR = [
     "Colong Sticker dulu yee kan",
@@ -41,8 +41,6 @@ KANGING_STR = [
     "ehh, keren nih... gua colong ya stickernya...",
     "Boleh juga ni Sticker Colong ahh~",
 ]
-
-combot_stickers_url = "https://combot.org/telegram/stickers?q="
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"(?:tikel|kang)\s?(.)?"))
@@ -454,22 +452,20 @@ async def sticker_to_png(sticker):
 async def cb_sticker(event):
     query = event.pattern_match.group(1)
     if not query:
-        return await edit_delete(event, "**Masukan Nama Sticker Pack!**", 10)
-    xxnx = await edit_or_reply(event, "`Searching sticker packs....`")
-    scraper = cloudscraper.create_scraper()
-    text = scraper.get(combot_stickers_url + query).text
+        return await event.edit("`Masukan Nama Sticker Pack!`")
+    await event.edit("`Searching sticker packs...`")
+    text = requests.get("https://combot.org/telegram/stickers?q=" + query).text
     soup = bs(text, "lxml")
     results = soup.find_all("div", {"class": "sticker-pack__header"})
     if not results:
-        return await edit_delete(xxnx, "`Tidak Menemukan Sticker Pack :(`", 10)
+        return await event.edit("`Tidak Menemukan Sticker Pack :(`")
     reply = f"**Keyword Sticker Pack:**\n {query}\n\n**Hasil:**\n"
     for pack in results:
         if pack.button:
             packtitle = (pack.find("div", "sticker-pack__title")).get_text()
             packlink = (pack.a).get("href")
-            packid = (pack.button).get("data-popup")
-            reply += f"\n **• ID: **`{packid}`\n [{packtitle}]({packlink})"
-    await xxnx.edit(reply)
+            reply += f"- [{packtitle}]({packlink})\n\n"
+    await event.edit(reply)
 
 
 CMD_HELP.update(
