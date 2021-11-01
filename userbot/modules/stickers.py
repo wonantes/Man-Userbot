@@ -15,6 +15,7 @@ import urllib.request
 from os import remove
 
 import cloudscraper
+from bs4 import BeautifulSoup as bs
 from PIL import Image
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
