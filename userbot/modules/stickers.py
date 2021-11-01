@@ -464,7 +464,7 @@ async def cb_sticker(event):
         if pack.button:
             packtitle = (pack.find("div", "sticker-pack__title")).get_text()
             packlink = (pack.a).get("href")
-            reply += f"- [{packtitle}]({packlink})\n\n"
+            reply += f" •  [{packtitle}]({packlink})\n"
     await event.edit(reply)
 
 
