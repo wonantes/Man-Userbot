@@ -452,13 +452,13 @@ async def sticker_to_png(sticker):
 async def cb_sticker(event):
     query = event.pattern_match.group(1)
     if not query:
-        return await event.edit("`Masukan Nama Sticker Pack!`")
+        return await event.edit("**Masukan Nama Sticker Pack!**")
     await event.edit("`Searching sticker packs...`")
     text = requests.get("https://combot.org/telegram/stickers?q=" + query).text
     soup = bs(text, "lxml")
     results = soup.find_all("div", {"class": "sticker-pack__header"})
     if not results:
-        return await event.edit("`Tidak Menemukan Sticker Pack :(`")
+        return await event.edit("**Tidak Dapat Menemukan Sticker Pack 🥺**")
     reply = f"**Keyword Sticker Pack:**\n {query}\n\n**Hasil:**\n"
     for pack in results:
         if pack.button:
@@ -481,7 +481,7 @@ CMD_HELP.update(
         \n  •  **Function : **Untuk Mengedit emoji stiker dengan emoji yang baru.\
         \n\n  •  **Syntax :** `{cmd}stickerinfo`\
         \n  •  **Function : **Untuk Mendapatkan Informasi Sticker Pack.\
-        \n\n  •  **Syntax :** `{cmd}stickers` <nama pack sticker>\
+        \n\n  •  **Syntax :** `{cmd}stickers` <nama sticker pack >\
         \n  •  **Function : **Untuk Mencari Sticker Pack.\
         \n\n  •  **NOTE:** Untuk Membuat Sticker Pack baru Gunakan angka dibelakang `{cmd}kang`\
         \n  •  **CONTOH:** `{cmd}kang 2` untuk membuat dan menyimpan ke sticker pack ke 2\
