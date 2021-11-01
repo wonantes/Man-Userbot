@@ -8,6 +8,7 @@
 # t.me/SharingUserbot & t.me/Lunatic0de
 
 import asyncio
+import cloudscraper
 import io
 import math
 import random
@@ -30,7 +31,7 @@ from userbot import CMD_HELP
 from userbot import S_PACK_NAME as custompack
 from userbot import bot
 from userbot.events import man_cmd
-from userbot.utils import edit_or_reply
+from userbot.utils import edit_delete, edit_or_reply
 
 KANGING_STR = [
     "Colong Sticker dulu yee kan",
@@ -39,6 +40,8 @@ KANGING_STR = [
     "ehh, keren nih... gua colong ya stickernya...",
     "Boleh juga ni Sticker Colong ahh~",
 ]
+
+combot_stickers_url = "https://combot.org/telegram/stickers?q="
 
 
 @bot.on(man_cmd(outgoing=True, pattern=r"(?:tikel|kang)\s?(.)?"))
@@ -446,24 +449,26 @@ async def sticker_to_png(sticker):
     return
 
 
-@bot.on(man_cmd(outgoing=True, pattern=r"findsticker (.*)"))
+@bot.on(man_cmd(outgoing=True, pattern=r"stickers ?([\s\S]*)"))
 async def cb_sticker(event):
     query = event.pattern_match.group(1)
     if not query:
-        return await event.edit("`Masukan Nama Sticker Pack!`")
-    await event.edit("`Searching sticker packs...`")
-    text = requests.get("https://combot.org/telegram/stickers?q=" + query).text
+        return await edit_delete(event, "**Masukan Nama Sticker Pack!**", 10)
+    xxnx = await edit_or_reply(event, "`Searching sticker packs....`")
+    scraper = cloudscraper.create_scraper()
+    text = scraper.get(combot_stickers_url + query).text
     soup = bs(text, "lxml")
     results = soup.find_all("div", {"class": "sticker-pack__header"})
     if not results:
-        return await event.edit("`Tidak Menemukan Sticker Pack :(`")
+        return await edit_delete(xxnx, "`Tidak Menemukan Sticker Pack :(`", 10)
     reply = f"**Keyword Sticker Pack:**\n {query}\n\n**Hasil:**\n"
     for pack in results:
         if pack.button:
             packtitle = (pack.find("div", "sticker-pack__title")).get_text()
             packlink = (pack.a).get("href")
-            reply += f"- [{packtitle}]({packlink})\n\n"
-    await event.edit(reply)
+            packid = (pack.button).get("data-popup")
+            reply += f"\n **• ID: **`{packid}`\n [{packtitle}]({packlink})"
+    await xxnx.edit(reply)
 
 
 CMD_HELP.update(
@@ -479,7 +484,7 @@ CMD_HELP.update(
         \n  •  **Function : **Untuk Mengedit emoji stiker dengan emoji yang baru.\
         \n\n  •  **Syntax :** `{cmd}stickerinfo`\
         \n  •  **Function : **Untuk Mendapatkan Informasi Sticker Pack.\
-        \n\n  •  **Syntax :** `{cmd}findsticker` <nama pack sticker>\
+        \n\n  •  **Syntax :** `{cmd}stickers` <nama pack sticker>\
         \n  •  **Function : **Untuk Mencari Sticker Pack.\
         \n\n  •  **NOTE:** Untuk Membuat Sticker Pack baru Gunakan angka dibelakang `{cmd}kang`\
         \n  •  **CONTOH:** `{cmd}kang 2` untuk membuat dan menyimpan ke sticker pack ke 2\
