@@ -75,10 +75,15 @@ async def killdabot(event):
 @bot.on(man_cmd(outgoing=True, pattern=r"restart$"))
 async def killdabot(event):
     await event.edit("**Man-Userbot Berhasil di Restart**")
-    if BOTLOG:
-        await event.client.send_message(
-            BOTLOG_CHATID, "#RESTART \n" "**Man-Userbot Berhasil Di Restart**"
-        )
+
+    try:
+        from userbot.modules.sql_helper.globals import addgvar, delgvar
+
+        delgvar("restartstatus")
+        addgvar("restartstatus", f"{event.chat_id}\n{event.id}")
+    except AttributeError:
+        pass
+
     # Spin a new instance of bot
     args = [sys.executable, "-m", "userbot"]
     execle(sys.executable, *args, environ)
