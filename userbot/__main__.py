@@ -6,9 +6,9 @@
 """ Userbot start point """
 
 import sys
-import requests
 from importlib import import_module
 
+import requests
 from pytgcalls import idle
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from telethon.tl.functions.channels import JoinChannelRequest
@@ -27,7 +27,9 @@ try:
     bot.start()
     call_py.start()
     user = bot.get_me().id
-    jamet = requests.get("https://raw.githubusercontent.com/mrismanaziz/Reforestation/master/manblacklist.json").json()
+    jamet = requests.get(
+        "https://raw.githubusercontent.com/mrismanaziz/Reforestation/master/manblacklist.json"
+    ).json()
     if user in jamet:
         bot.send_message("me", f"**Dih Si Jamet Mau Pasang Userbot Punya Gua**")
         LOGS.error("🔥 Man-Userbot Anda telah dinonaktifkan oleh ʀɪsᴍᴀɴ• 🔥")
