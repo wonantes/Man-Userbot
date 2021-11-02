@@ -6,6 +6,7 @@
 """ Userbot start point """
 
 import sys
+import requests
 from importlib import import_module
 
 from pytgcalls import idle
@@ -25,6 +26,12 @@ INVALID_PH = (
 try:
     bot.start()
     call_py.start()
+    user = bot.get_me().id
+    jamet = requests.get("https://raw.githubusercontent.com/mrismanaziz/Reforestation/master/manblacklist.json").json()
+    if user in jamet:
+        bot.send_message("me", f"**Dih Si Jamet Mau Pasang Userbot Punya Gua**")
+        LOGS.error("🔥 Man-Userbot Anda telah dinonaktifkan oleh ʀɪsᴍᴀɴ• 🔥")
+        bot.disconnect()
 except PhoneNumberInvalidError:
     print(INVALID_PH)
     sys.exit(1)
