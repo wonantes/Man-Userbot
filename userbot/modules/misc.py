@@ -65,7 +65,8 @@ async def killdabot(event):
             "**#SHUTDOWN** \n"
             "**Man-Userbot** telah di matikan!\nJika ingin menghidupkan kembali silahkan buka heroku",
         )
-    await event.edit("`Man-Userbot Berhasil di matikan!`")
+    await event.client.send_file(event.chat_id, "https://www.winhistory.de/more/winstart/mp3/winxpshutdown.mp3", caption="**Man-Userbot Berhasil di matikan!**", voice_note=True)
+    await event.delete()
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)
     else:
