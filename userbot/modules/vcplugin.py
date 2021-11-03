@@ -257,7 +257,7 @@ async def vc_vplay(event):
             pq = event.text.split(maxsplit=1)[1]
             RESOLUSI = int(pq)
         if replied.video or replied.document:
-            songname = replied.file.title
+            songname = replied.file.title or replied.file.name
         if chat_id in QUEUE:
             pos = add_to_queue(chat_id, songname, dl, "Video", RESOLUSI)
             await xnxx.edit(
