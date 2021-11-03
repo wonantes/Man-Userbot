@@ -261,7 +261,7 @@ async def vc_vplay(event):
         if chat_id in QUEUE:
             pos = add_to_queue(chat_id, songname, dl, "Video", RESOLUSI)
             await xnxx.edit(
-                f"💡 **Video Ditambahkan Ke antrian »** `#{pos}`\n\n🏷 **Judul:** [{songname}]({url})\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
+                f"💡 **Video Ditambahkan Ke antrian »** `#{pos}`\n\n🏷 **Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
             )
         else:
             if RESOLUSI == 360:
@@ -275,9 +275,9 @@ async def vc_vplay(event):
                 AudioVideoPiped(dl, HighQualityAudio(), hmmm),
                 stream_type=StreamType().pulse_stream,
             )
-            add_to_queue(chat_id, songname, dl, link, "Video", RESOLUSI)
+            add_to_queue(chat_id, songname, dl, "Video", RESOLUSI)
             await xnxx.edit(
-                f"🏷 **Judul:** [{songname}]({url})\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar Video`\n🎧 **Atas permintaan:** {from_user}",
+                f"🏷 **Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar Video`\n🎧 **Atas permintaan:** {from_user}",
                 link_preview=False,
             )
     else:
