@@ -173,7 +173,7 @@ async def vc_play(event):
         botman = await event.edit("`Downloading...`")
         dl = await replied.download_media()
         if replied.audio:
-            songname = replied.audio.title
+            songname = replied.file.title or replied.file.name
         elif replied.voice:
             songname = "Voice Note"
         if chat_id in QUEUE:
@@ -257,7 +257,7 @@ async def vc_vplay(event):
             pq = event.text.split(maxsplit=1)[1]
             RESOLUSI = int(pq)
         if replied.video or replied.document:
-            songname = replied.video.file_name or replied.document.file_name
+            songname = replied.file.title
         if chat_id in QUEUE:
             pos = add_to_queue(chat_id, songname, dl, "Video", RESOLUSI)
             await xnxx.edit(
