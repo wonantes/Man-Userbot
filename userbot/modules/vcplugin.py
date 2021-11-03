@@ -170,7 +170,7 @@ async def vc_play(event):
                     await botman.edit(f"`{ep}`")
 
     else:
-        botman = await edit_or_reply(replied, "`Downloading`")
+        botman = await replied.reply("`Downloading...`")
         dl = await replied.download_media()
         link = replied.link
         if replied.audio:
@@ -250,7 +250,7 @@ async def vc_vplay(event):
                     await xnxx.edit(f"`{ep}`")
 
     elif replied:
-        xnxx = await edit_or_reply(replied, "`Downloading`")
+        xnxx = await replied.reply("`Downloading...`")
         dl = await replied.download_media()
         link = replied.link
         if len(event.text.split()) < 2:
