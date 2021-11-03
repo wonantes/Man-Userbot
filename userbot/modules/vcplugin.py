@@ -173,13 +173,13 @@ async def vc_play(event):
         botman = await event.edit("`Downloading...`")
         dl = await replied.download_media()
         if replied.audio:
-            songname = "Telegram Music Player..."
+            songname = replied.audio.title
         elif replied.voice:
             songname = "Voice Note"
         if chat_id in QUEUE:
             pos = add_to_queue(chat_id, songname, dl, "Audio")
             await botman.edit(
-                f"💡 **Lagu Ditambahkan Ke antrian »** `#{pos}`\n\n**🏷 Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
+                f"💡 **Lagu Ditambahkan Ke antrian »** `#{pos}`\n\n🏷 **Judul: {songname}**\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
             )
         else:
             await call_py.join_group_call(
@@ -191,7 +191,7 @@ async def vc_play(event):
             )
             add_to_queue(chat_id, songname, dl, "Audio")
             await botman.edit(
-                f"🏷 **Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar`\n🎧 **Atas permintaan:** {from_user}",
+                f"🏷 **Judul: {songname}**\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar`\n🎧 **Atas permintaan:** {from_user}",
                 link_preview=False,
             )
 
@@ -257,7 +257,7 @@ async def vc_vplay(event):
             pq = event.text.split(maxsplit=1)[1]
             RESOLUSI = int(pq)
         if replied.video or replied.document:
-            songname = "Telegram Video Player..."
+            songname = replied.video.file_name or replied.document.file_name
         if chat_id in QUEUE:
             pos = add_to_queue(chat_id, songname, dl, "Video", RESOLUSI)
             await xnxx.edit(
