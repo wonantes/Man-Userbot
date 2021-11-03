@@ -170,16 +170,16 @@ async def vc_play(event):
                     await botman.edit(f"`{ep}`")
 
     else:
-        botman = await replied.reply("`Downloading...`")
-        link, dl = await replied.download_media()
+        botman = await event.reply("`Downloading...`")
+        dl = await replied.download_media()
         if replied.audio:
             songname = "Telegram Music Player..."
         elif replied.voice:
             songname = "Voice Note"
         if chat_id in QUEUE:
-            pos = add_to_queue(chat_id, songname, dl, link, "Audio", 0)
+            pos = add_to_queue(chat_id, songname, dl, "Audio", 0)
             await botman.edit(
-                f"💡 **Lagu Ditambahkan Ke antrian »** `#{pos}`\n\n**🏷 Judul:** [{songname}]({url})\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
+                f"💡 **Lagu Ditambahkan Ke antrian »** `#{pos}`\n\n**🏷 Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
             )
         else:
             await call_py.join_group_call(
@@ -189,9 +189,9 @@ async def vc_play(event):
                 ),
                 stream_type=StreamType().pulse_stream,
             )
-            add_to_queue(chat_id, songname, dl, link, "Audio", 0)
+            add_to_queue(chat_id, songname, dl, "Audio", 0)
             await botman.edit(
-                f"🏷 **Judul:** [{songname}]({url})\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar`\n🎧 **Atas permintaan:** {from_user}",
+                f"🏷 **Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar`\n🎧 **Atas permintaan:** {from_user}",
                 link_preview=False,
             )
 
@@ -249,8 +249,8 @@ async def vc_vplay(event):
                     await xnxx.edit(f"`{ep}`")
 
     elif replied:
-        xnxx = await replied.reply("`Downloading...`")
-        link, dl = await replied.download_media()
+        xnxx = await event.reply("`Downloading...`")
+        dl = await replied.download_media()
         if len(event.text.split()) < 2:
             RESOLUSI = 720
         else:
@@ -259,7 +259,7 @@ async def vc_vplay(event):
         if replied.video or replied.document:
             songname = "Telegram Video Player..."
         if chat_id in QUEUE:
-            pos = add_to_queue(chat_id, songname, dl, link, "Video", RESOLUSI)
+            pos = add_to_queue(chat_id, songname, dl, "Video", RESOLUSI)
             await xnxx.edit(
                 f"💡 **Video Ditambahkan Ke antrian »** `#{pos}`\n\n🏷 **Judul:** [{songname}]({url})\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
             )
