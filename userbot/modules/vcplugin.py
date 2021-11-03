@@ -177,7 +177,7 @@ async def vc_play(event):
         elif replied.voice:
             songname = "Voice Note"
         if chat_id in QUEUE:
-            pos = add_to_queue(chat_id, songname, dl, "Audio", 0)
+            pos = add_to_queue(chat_id, songname, dl, "Audio")
             await botman.edit(
                 f"💡 **Lagu Ditambahkan Ke antrian »** `#{pos}`\n\n**🏷 Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
             )
@@ -189,7 +189,7 @@ async def vc_play(event):
                 ),
                 stream_type=StreamType().pulse_stream,
             )
-            add_to_queue(chat_id, songname, dl, "Audio", 0)
+            add_to_queue(chat_id, songname, dl, "Audio")
             await botman.edit(
                 f"🏷 **Judul:** {songname}\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar`\n🎧 **Atas permintaan:** {from_user}",
                 link_preview=False,
@@ -229,7 +229,7 @@ async def vc_vplay(event):
             if hm == 0:
                 await xnxx.edit(f"`{ytlink}`")
             elif chat_id in QUEUE:
-                pos = add_to_queue(chat_id, songname, ytlink, url, "Video", RESOLUSI)
+                pos = add_to_queue(chat_id, songname, ytlink, url, "Video")
                 await xnxx.edit(
                     f"💡 **Video Ditambahkan Ke antrian »** `#{pos}`\n\n**🏷 Judul:** [{songname}]({url})\n**👥 Chat ID:** `{chat_id}`\n🎧 **Atas permintaan:** {from_user}"
                 )
@@ -240,7 +240,7 @@ async def vc_vplay(event):
                         AudioVideoPiped(ytlink, HighQualityAudio(), hmmm),
                         stream_type=StreamType().pulse_stream,
                     )
-                    add_to_queue(chat_id, songname, ytlink, url, "Video", RESOLUSI)
+                    add_to_queue(chat_id, songname, ytlink, url, "Video")
                     await xnxx.edit(
                         f"**🏷 Judul:** [{songname}]({url})\n**👥 Chat ID:** `{chat_id}`\n💡 **Status:** `Sedang Memutar Video`\n🎧 **Atas permintaan:** {from_user}",
                         link_preview=False,
