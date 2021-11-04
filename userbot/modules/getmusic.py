@@ -39,9 +39,7 @@ async def getmusic(cat):
     for i in user_data:
         video_link = i.get_attribute("href")
         break
-    command = (
-        f"yt-dlp -x --add-metadata --embed-thumbnail --no-progress --audio-format mp3 {video_link}"
-    )
+    command = f"yt-dlp -x --add-metadata --embed-thumbnail --no-progress --audio-format mp3 {video_link}"
     os.system(command)
     return video_link
 
@@ -55,7 +53,10 @@ async def getmusicvideo(cat):
     for i in user_data:
         video_link = i.get_attribute("href")
         break
-    command = 'yt-dlp -f "[filesize<50M]" --no-progress --merge-output-format mp4 ' + video_link
+    command = (
+        'yt-dlp -f "[filesize<50M]" --no-progress --merge-output-format mp4 '
+        + video_link
+    )
     os.system(command)
 
 
