@@ -6,17 +6,17 @@ from userbot.events import man_cmd
 from userbot.utils import edit_or_reply
 
 
-@bot.on(man_cmd(outgoing=True, pattern="lyrictd(?: |$)(.*)"))
+@bot.on(man_cmd(outgoing=True, pattern=r"lyrics(?: |$)(.*)"))
 async def _(event):
     query = event.pattern_match.group(1)
     if not query:
         return await event.edit("**Silahkan Masukan Judul Lagu**")
     try:
         xxnx = await edit_or_reply(event,"`Searching Lyrics...`")
-        resp = requests.get(
+        respond = requests.get(
             f"https://api-tede.herokuapp.com/api/lirik?l={query}"
         ).json()
-        result = f"{resp['data']}"
+        result = f"{respond['data']}"
         await xxnx.edit(result)
     except Exception as e:
         await xxnx.edit(f"**ERROR:** `{e}`")
