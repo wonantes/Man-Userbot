@@ -12,7 +12,7 @@ async def _(event):
     if not query:
         return await event.edit("**Silahkan Masukan Judul Lagu**")
     try:
-        xxnx = await edit_or_reply(event,"`Searching Lyrics...`")
+        xxnx = await edit_or_reply(event, "`Searching Lyrics...`")
         respond = requests.get(
             f"https://api-tede.herokuapp.com/api/lirik?l={query}"
         ).json()
