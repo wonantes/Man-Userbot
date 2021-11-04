@@ -40,7 +40,7 @@ async def getmusic(cat):
         video_link = i.get_attribute("href")
         break
     command = (
-        f"yt-dlp -x --add-metadata --embed-thumbnail --audio-format mp3 {video_link}"
+        f"yt-dlp -x --add-metadata --embed-thumbnail --no-progress --audio-format mp3 {video_link}"
     )
     os.system(command)
     return video_link
@@ -55,7 +55,7 @@ async def getmusicvideo(cat):
     for i in user_data:
         video_link = i.get_attribute("href")
         break
-    command = 'yt-dlp -f "[filesize<50M]" --merge-output-format mp4 ' + video_link
+    command = 'yt-dlp -f "[filesize<50M]" --no-progress --merge-output-format mp4 ' + video_link
     os.system(command)
 
 
@@ -428,18 +428,6 @@ async def upload_track(track_location, message):
         attributes=document_attributes,
     )
     os.remove(track_location)
-
-
-CMD_HELP.update(
-    {
-        "youtubedl": "**Plugin : **`youtubedl`\
-        \n\n  •  **Syntax :** `.song` <nama lagu>\
-        \n  •  **Function : **Untuk Mencari dan mendownload lagu dari youtube.\
-        \n\n  •  **Syntax :** `.vsong` <nama lagu>\
-        \n  •  **Function : **Untuk Mencari dan mendownload Video  dari youtube.\
-    "
-    }
-)
 
 
 CMD_HELP.update(
